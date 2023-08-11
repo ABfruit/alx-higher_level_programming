@@ -1,6 +1,6 @@
-# :shell: 0x02 - Using Import and creating modules :shell:
+# :shell: 0x03 - Python - Data Structures: Lists, Tuples :shell:
 
-In this project I will be using modules in Python3 to complete various tasks. I will be both using and creating modules to familiarize myself with the symbol tables being transfered from file to file. As well as familiarize myself with using `__name__` to dynmaically assert whether a module is being imported or run as a script.
+In this project I will be learning how different data structures are implemented in Python. Including Lists and Tuples primarily.
 
 ## :running: Getting Started
 
