@@ -2,11 +2,7 @@
 **0x04. Python - More Data Structures: Set, Dictionary**
 
 ## Author's Details
-Name: *Wendy Munyasi.*
-
-Email: *wendymunyasi@gmail.com*
-
-Tel: *+254707240068.*
+Name: *Atakilti Brhanu .*
 
 ##  Requirements
 
@@ -52,4 +48,4 @@ What are the map, reduce and filter functions.
 
 ## Collaborate
 
-To collaborate, reach me through my email address wendymunyasi@gmail.com.
+To collaborate, reach me through my email address ab.fruit@gmail.com.
