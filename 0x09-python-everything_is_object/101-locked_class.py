@@ -1,11 +1,6 @@
 #!/usr/bin/python3
-
-
 class LockedClass:
-    """Locked class: can't set instance attributes to it
-    """
-    def __setattr__(self, name, value):
-        if name == "first_name":
-            self.__dict__[name] = value
-        else:
-            raise AttributeError("'LockedClass' object has no attribute '" + name + "'")
+    __slots__ = ['first_name']
+
+    def __init__(self, first_name=''):
+        self.first_name = first_name
