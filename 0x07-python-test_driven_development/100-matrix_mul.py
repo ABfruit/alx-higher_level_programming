@@ -1,99 +1,67 @@
 #!/usr/bin/python3
+"""
+Module matrix_mul
+Multiplies two matrices and returns the result.
+"""
 
 
 def matrix_mul(m_a, m_b):
     """
-    produces a result of matrix multiplaction of two matricies
-    checks for bad input to function
-    """
-    if not isinstance(m_a, list):
+    Return the matrix resulting of
+    the multiplication of m_a and m_b."""
+
+    if type(m_a) is not list:
         raise TypeError("m_a must be a list")
-    if not isinstance(m_b, list):
+    if type(m_b) is not list:
         raise TypeError("m_b must be a list")
 
-    if not check_list_of_lists(m_a):
-        raise TypeError("m_a must be a list of lists")
-    if not check_list_of_lists(m_b):
-        raise TypeError("m_b must be a list of lists")
+    for x in m_a:
+        if type(x) is not list:
+            raise TypeError("m_a must be a list of lists")
+    for x in m_b:
+        if type(x) is not list:
+            raise TypeError("m_b must be a list of lists")
 
-    if not check_empty_list(m_a):
+    if m_a == [] or m_a == [[]]:
         raise ValueError("m_a can't be empty")
-    if not check_empty_list(m_b):
+    if m_b == [] or m_b == [[]]:
         raise ValueError("m_b can't be empty")
 
-    if not check_ele_types(m_a):
-        raise TypeError("m_a should contain only integers or floats")
-    if not check_ele_types(m_b):
-        raise TypeError("m_b should contain only integers or floats")
+    for row in m_a:
+        for x in row:
+            if type(x) is not int and type(x) is not float:
+                raise TypeError("m_a should contain only integers or floats")
+    for row in m_b:
+        for x in row:
+            if type(x) is not int and type(x) is not float:
+                raise TypeError("m_b should contain only integers or floats")
 
-    if not check_rectangle(m_a):
-        raise TypeError("each row of m_a must should be of the same size")
-    if not check_rectangle(m_b):
-        raise TypeError("each row of m_a must should be of the same size")
+    row_len = []
+    for row in m_a:
+        row_len.append(len(row))
+    if not all(elem == row_len[0] for elem in row_len):
+            raise TypeError("each row of m_a must should be of the same size")
+    row_len = []
+    for row in m_b:
+        row_len.append(len(row))
+    if not all(elem == row_len[0] for elem in row_len):
+            raise TypeError("each row of m_b must should be of the same size")
 
-    if not check_matrix_mult(m_a, m_b):
+    a_col = 0
+    for col in m_a[0]:
+        a_col += 1
+    b_row = 0
+    for row in m_b:
+        b_row += 1
+
+    if a_col != b_row:
         raise ValueError("m_a and m_b can't be multiplied")
 
-    if len(m_a) > len(m_b[0]):
-        res_len = len(m_a)
-    elif len(m_a) < len(m_b[0]):
-        res_len = len(m_b[0])
-    else:
-        res_len = len(m_a)
+    result = [[0 for x in range(len(m_b[0]))] for y in range(len(m_a))]
 
-    new_matrix = []
-    for row_i in range(0, len(m_a)):
-        values = []
-        for col_i in range(0, len(m_b[0])):
-            res = 0
-            for j in range(0, len(m_a[row_i])):
-                res += m_a[row_i][j] * m_b[j][col_i]
-            values.append(res)
-        new_matrix.append(values)
-    return new_matrix
+    for i in range(len(m_a)):
+        for j in range(len(m_b[0])):
+            for k in range(len(m_b)):
+                result[i][j] += m_a[i][k] * m_b[k][j]
 
-
-def check_matrix_mult(m_a, m_b):
-    """checks that two matricies can infact be multiplied
-       length of row of m_a is equal to columns (num rows) in m_b
-       all other matricies checks assumed to have been done
-    """
-    return (len(m_a) == len(m_b[0]) or len(m_b) == len(m_a[0]))
-
-
-def check_list_of_lists(matrix):
-    """checks if a list is a list of lists (aka a matrix)
-    """
-    for row in matrix:
-        if not isinstance(row, list):
-            return False
-    return True
-
-
-def check_ele_types(matrix):
-    """checks if a matrix (list of lists) contains non ints/floats
-    """
-    for row in matrix:
-        for ele in row:
-            if not isinstance(ele, (int, float)):
-                return False
-    return True
-
-
-def check_empty_list(m):
-    """checks if the matrix is empty of sub matrix is empty
-    """
-    if ((m is None or len(m) == 0) or (m[0] is None or len(m[0]) == 0)):
-        return False
-    return True
-
-
-def check_rectangle(matrix):
-    """checks if a matrix is a rectangle
-    """
-    prevRowSize = -1
-    for row in matrix:
-        if prevRowSize != -1 and prevRowSize != len(row):
-            return False
-        prevRowSize = len(row)
-    return True
+    return result

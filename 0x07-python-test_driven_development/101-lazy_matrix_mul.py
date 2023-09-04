@@ -1,10 +1,13 @@
 #!/usr/bin/python3
 """
-lazy matrix multiplication using a module
-more experience with unit testing
+Module lazy_matrix_mul
+Matrix multiplication using NumPy.
 """
-from numpy import matmul
+import numpy
 
 
 def lazy_matrix_mul(m_a, m_b):
-    return matmul(m_a, m_b)
+    """Multiplies m_a and m_b using
+    matmul, and returns the result.
+    """
+    return numpy.matmul(m_a, m_b)
