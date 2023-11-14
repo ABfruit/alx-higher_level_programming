@@ -1,15 +1,11 @@
 #!/usr/bin/node
-const initList = require('./100-data.js').list;
-const newList = initList.map((number, index) => number * index);
+// imports array from data file; creates new array with map; prints both
+const list = require('./100-data').list;
 
-console.log(initList);
-console.log(newList);
-
-// Below are alternatives to newList function
-// const newList = initList.map(function (number, index) {
-//   return number * index;
-// });
-
-// const newList = initList.map((number, index) => {
-//   return number * index;
-// });
+console.log(list);
+if (Array.isArray(list) && list.every(elem => typeof elem === 'number')) {
+  const newList = list.map((value, index) => value * index);
+  console.log(newList);
+} else {
+  console.log(undefined);
+}

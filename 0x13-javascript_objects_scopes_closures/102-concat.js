@@ -1,16 +1,18 @@
 #!/usr/bin/node
-
-/**
- * script that concats 2 files.
- * The first argument is the file path of the first source file.
- * The second argument is the file path of the second source file.
- * The third argument is the file path of the destination.
- */
+// reads two text files and concatenates contents into new file
 const fs = require('fs');
-const fileA = process.argv[2];
-const fileB = process.argv[3];
-const fileC = process.argv[4];
+// fs is standard but needs import
 
-const dataA = fs.readFileSync(fileA, { encoding: 'utf8' });
-const dataB = fs.readFileSync(fileB, { encoding: 'utf8' });
-fs.writeFileSync(fileC, dataA + dataB, { encoding: 'utf8' });
+// each `readFile` and `writeFile` call is asynchronous
+fs.readFile(process.argv[2], (err, data) => {
+  if (err) throw err;
+  // data is bytestream before encoding
+  let output = data;
+  fs.readFile(process.argv[3], (err, data) => {
+    if (err) throw err;
+    output += data;
+    fs.writeFile(process.argv[4], output, (err) => {
+      if (err) throw err;
+    });
+  });
+});
