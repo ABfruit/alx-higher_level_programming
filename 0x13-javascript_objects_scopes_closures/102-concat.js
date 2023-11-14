@@ -1,18 +1,8 @@
 #!/usr/bin/node
-// reads two text files and concatenates contents into new file
-const fs = require('fs');
-// fs is standard but needs import
+// script that concats 2 files
 
-// each `readFile` and `writeFile` call is asynchronous
-fs.readFile(process.argv[2], (err, data) => {
-  if (err) throw err;
-  // data is bytestream before encoding
-  let output = data;
-  fs.readFile(process.argv[3], (err, data) => {
-    if (err) throw err;
-    output += data;
-    fs.writeFile(process.argv[4], output, (err) => {
-      if (err) throw err;
-    });
-  });
-});
+const args = process.argv.slice(2);
+const file = require('fs');
+const contentA = file.readFileSync('./' + args[0]);
+const contentB = file.readFileSync('./' + args[1]);
+file.writeFileSync('./' + args[2], contentA + contentB);
