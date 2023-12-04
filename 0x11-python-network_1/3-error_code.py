@@ -1,16 +1,20 @@
 #!/usr/bin/python3
-'''send request and decode utf-8, capture HTTPError
-'''
-import urllib.request as url
-import urllib.error as urlerr
+"""
+script that takes in a URL, sends a request to the URL and displays the
+body of the response (decoded in utf-8).
+You have to manage urllib.error.HTTPError exceptions and
+print: Error code: followed by the HTTP status code.
+"""
+import urllib.request
+import urllib.error
 import sys
 
-try:
-    req = url.Request(sys.argv[1])
+
+if __name__ == "__main__":
+    url = sys.argv[1]
     try:
-        with url.urlopen(req) as response:
-            print(response.read().decode('utf-8'))
-    except urlerr.HTTPError as e:
-        print("Error code:", e.code)
-except BaseException:
-    pass
+        with urllib.request.urlopen(url) as response:
+            response_text = response.read().decode("utf-8")
+            print(response_text)
+    except urllib.error.HTTPError as e:
+        print("Error code: {}".format(e.code))

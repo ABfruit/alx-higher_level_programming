@@ -1,3 +1,3 @@
 #!/bin/bash
-# Delete a resource with metoh DELETE
-curl -sL $1 -X DELETE
+# script that sends a DELETE request to the URL passed as the first argument and displays the body of the response
+curl -s "$1" -X DELETE

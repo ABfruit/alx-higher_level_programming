@@ -1,16 +1,26 @@
 #!/usr/bin/python3
-'''send post request
-'''
-import urllib.request as url
-import urllib.parse as parse
+"""
+script that takes in a URL and an email, sends a POST request to the passed
+URL with the email as a parameter, and displays the body of the response
+(decoded in utf-8).
+"""
+import urllib.request
+import urllib.parse
 import sys
 
-try:
-    values = {'email': sys.argv[2]}
-    data = parse.urlencode(values)
-    data = data.encode('ascii')
-    req = url.Request(sys.argv[1], data)
-    with url.urlopen(req) as response:
-        print(response.read().decode('utf-8'))
-except BaseException as e:
-    print(e)
+
+if __name__ == "__main__":
+    url = sys.argv[1]
+    email = sys.argv[2]
+    param = {
+        "email": email
+    }
+    query_string = urllib.parse.urlencode(param)
+    data = query_string.encode("ascii")
+    req = urllib.request.Request(url, data)
+    with urllib.request.urlopen(req) as response:
+        # If you do not pass the data argument, urllib uses a GET request.
+        # One way in which GET and POST requests differ is that POST requests
+        # often have "side-effects".
+        response_text = response.read().decode("utf-8")
+        print(response_text)

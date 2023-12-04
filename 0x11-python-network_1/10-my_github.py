@@ -1,18 +1,19 @@
 #!/usr/bin/python3
-'''Search API
-'''
-import requests
+"""script that takes your GitHub credentials (username and password) and
+uses the GitHub API to display your id.
+The first argument will be your username.
+The second argument will be your password (in your case, a personal
+access token as password).
+"""
 import sys
-from requests.auth import HTTPBasicAuth as aut
+import requests
+from requests.auth import HTTPBasicAuth
 
-try:
-    data = {'username': sys.argv[1], 'password': sys.argv[2]}
-    url = 'https://api.github.com/user'
-    res = requests.get(url, auth=aut(
-            sys.argv[1],
-            sys.argv[2]))
-    res = res.json()
-    print(res.get('id'))
 
-except Exception as e:
-    print(e)
+if __name__ == "__main__":
+    url = "https://api.github.com/user"
+    username = sys.argv[1]
+    password = sys.argv[2]
+    response = requests.get(url, auth=HTTPBasicAuth(username, password))
+    json_obj = response.json()
+    print(json_obj.get("id"))

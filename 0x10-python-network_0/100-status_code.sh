@@ -1,3 +1,3 @@
-#!/bin/bash
-# This script capture de status code
-curl -so /dev/null $1 -w '%{http_code}'
+#!/bin/bash 
+# script that sends a request to a URL passed as an argument, and displays only the status code of the response.
+curl -s -L -X HEAD -w "%{http_code}" "$1"
